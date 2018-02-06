@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport'  content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
+    <title>潮生活积分夺宝</title>
+    <link href="scss/index.css" rel="stylesheet" />
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/index.js" defer="defer"></script>
+</head>
+<body>
+    <!--
+        1. 由于未明确指定使用原生js，所以使用框架，也没有使用 webpack 打包、es6
+        2. 由于是 demo 未兼容 @3x，直接使用图片
+        3. 由于是 demo 未兼容 1px 像素边框问题
+        4. 没有 .PingFang-SC-Medium 字体
+                                    --请知悉
+    -->
+    <div id="app">
+        <header class="header">
+            <div class="back">
+                <img src="./img/icon/back.png" class="back__icon" />
+                返回
+            </div>
+            <h1 class="title">潮生活积分夺宝</h1>
+            <div class="more">
+                <img src="./img/icon/more.png" class="more__icon" />
+            </div>
+        </header>
+        <div class="container">
+            <nav class="type">
+                <div class="type__item" @click="getType(0)">全部</div>
+                <div class="type__item active" @click="getType(1)">进度</div>
+                <div class="type__item" @click="getType(2)">总需人次</div>
+                <div class="type__item" @click="getType(3)">即将揭晓</div>
+            </nav>
+            <section class="goods">
+                <a :href="'/detail.html?id=' + item.actId" v-for="item in info.activityList" class="link">
+                    <figure class="goods__item">
+                        <img class="goods__img" :src="item.actPic" />
+                        <figcaption class="goods__desc">
+                            <h4 class="goods__title">
+                                {{item.actName}}
+                                <span class="goods__tag">{{item.schedule | format}}</span>
+                            </h4>
+                            <div class="progress">
+                                <div class="progress__wrap">
+                                    <div class="progress__main"></div>
+                                </div>
+                                <div class="progress__num">8%</div>
+                            </div>
+                            <div class="goods__detail">
+                                {{'总需人次' + item.requiredCnt}} {{item.issuedCnt + '已参与'}}
+                            </div>
+                            <button class="goods__button">立即参与</button>
+                        </figcaption>
+                    </figure>
+                </a>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
